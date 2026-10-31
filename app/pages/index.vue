@@ -1,9 +1,13 @@
 <template>
-  <div class="">
-    <h1>ou bileskaya</h1>
+  <div class="main">
+    <h1 class="de">ou bileskaya</h1>
   </div>
 </template>
 
 <script setup lang="ts"></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.de {
+  color: $primary-color;
+}
+</style>
