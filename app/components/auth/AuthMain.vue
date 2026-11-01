@@ -6,8 +6,12 @@
       <div class="auth__stick"></div>
 
       <div class="auth__fields">
-        <input v-model="email" type="email" placeholder="Email" />
-        <input v-model="password" type="password" placeholder="Пароль" />
+        <CommonInput v-model:text="email" type="email" placeholder="Email" />
+        <CommonInput
+          v-model:text="password"
+          type="password"
+          placeholder="Пароль"
+        />
       </div>
 
       <CommonButton v-if="isSignInMode" @click="handleSignIn"
