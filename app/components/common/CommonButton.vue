@@ -11,12 +11,14 @@
   align-items: center;
   padding: 16px;
   border-radius: 12px;
-  background: $btn-color;
+  background: rgba($btn-color, 70%);
   color: $white;
   font-size: 16px;
+  transition: background 0.2s ease;
 
   &:hover {
     cursor: pointer;
+    background: $btn-color;
   }
 }
 </style>

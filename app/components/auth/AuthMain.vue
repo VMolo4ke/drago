@@ -40,15 +40,9 @@
 </template>
 
 <script setup lang="ts">
-import { createClient } from "@supabase/supabase-js";
+const supabase = useSupabaseClient()
 
-const config = useRuntimeConfig();
-const supabase = createClient(
-  config.public.supabaseUrl,
-  config.public.supabaseAnonKey,
-);
-
-const isSignInMode = ref(true);
+const isSignInMode = ref(true)
 
 const email = ref("");
 const password = ref("");
@@ -61,29 +55,28 @@ const handleSignUp = async () => {
   const { data, error } = await supabase.auth.signUp({
     email: email.value,
     password: password.value,
-  });
+  })
 
   if (error) {
-    alert("Ошибка регистрации: " + error.message);
+    alert("Ошибка регистрации: " + error.message)
   } else {
-    alert("Успешно! Проверь почту, туда ушло письмо для подтверждения.");
-    console.log("Пользователь:", data.user);
+    alert("Успешно! Проверь почту, туда ушло письмо для подтверждения.")
+    console.log("Пользователь:", data.user)
   }
-};
+}
 
 const handleSignIn = async () => {
   const { data, error } = await supabase.auth.signInWithPassword({
     email: email.value,
     password: password.value,
-  });
+  })
 
   if (error) {
-    alert("Ошибка входа: " + error.message);
+    alert("Ошибка входа: " + error.message)
   } else {
-    alert("Вы успешно вошли!");
-    console.log("Сессия:", data.session);
+    await navigateTo('/projects')
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>
