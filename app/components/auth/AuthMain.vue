@@ -36,6 +36,8 @@
         <p class="auth__change" @click="toggleMode">{{ isSignInMode ? "Регистрация" : "Вход" }}</p>
       </p>
     </div>
+
+    <CommonModal v-if="errorText" text="errorText"/>
   </div>
 </template>
 
@@ -46,6 +48,7 @@ const isSignInMode = ref(true)
 
 const email = ref("");
 const password = ref("");
+const errorText = ref("");
 
 const toggleMode = () => {
     isSignInMode.value = !isSignInMode.value
@@ -58,10 +61,9 @@ const handleSignUp = async () => {
   })
 
   if (error) {
-    alert("Ошибка регистрации: " + error.message)
+    errorText.value = "Ошибка регистрации: " + error.message
   } else {
-    alert("Успешно! Проверь почту, туда ушло письмо для подтверждения.")
-    console.log("Пользователь:", data.user)
+    errorText.value = "Успешно! Проверь почту, туда ушло письмо для подтверждения."
   }
 }
 
@@ -72,7 +74,7 @@ const handleSignIn = async () => {
   })
 
   if (error) {
-    alert("Ошибка входа: " + error.message)
+    errorText.value = "Ошибка входа: " + error.message
   } else {
     await navigateTo('/projects')
   }
