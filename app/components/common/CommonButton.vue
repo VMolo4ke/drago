@@ -14,5 +14,9 @@
   background: $btn-color;
   color: $white;
   font-size: 16px;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 </style>
