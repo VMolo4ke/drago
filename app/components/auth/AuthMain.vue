@@ -10,7 +10,9 @@
         <input v-model="password" type="password" placeholder="Пароль" />
       </div>
 
-      <button v-if="isSignInMode" @click="handleSignIn">Войти</button>
+      <CommonButton v-if="isSignInMode" @click="handleSignIn"
+        >Войти</CommonButton
+      >
       <button v-else @click="handleSignUp">Зарегистрироваться</button>
 
       <p class="auth__toggle" @click="isSignInMode = !isSignInMode">
@@ -21,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { createClient } from "@supabase/supabase-js";
 
 const config = useRuntimeConfig();
@@ -75,10 +76,10 @@ const handleSignIn = async () => {
     display: flex;
     flex-direction: column;
     width: 600px;
-    padding: 24px;
+    padding: 24px 40px;
     background-color: #fff;
     border-radius: 24px;
-    gap: 40px;
+    gap: 32px;
   }
 
   &__title {
@@ -87,7 +88,7 @@ const handleSignIn = async () => {
 
   &__stick {
     width: 100%;
-    height: 2px;
+    height: 1px;
     background: #00000015;
   }
 }
