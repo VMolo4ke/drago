@@ -1,26 +1,39 @@
 <template>
   <div class="auth">
     <div class="auth__window">
-      <h3 class="auth__title">{{ isSignInMode ? "Вход" : "Регистрация" }}</h3>
+      <h2 class="auth__title">{{ isSignInMode ? "Вход" : "Регистрация" }}</h2>
 
       <div class="auth__stick"></div>
 
       <div class="auth__fields">
-        <CommonInput v-model:text="email" type="email" placeholder="Email" />
-        <CommonInput
-          v-model:text="password"
-          type="password"
-          placeholder="Пароль"
-        />
+        <div class="auth__field">
+          <p>Email</p>
+          <CommonInput v-model="email" type="email" placeholder="Email" />
+        </div>
+
+        <div class="auth__field">
+          <p>Пароль</p>
+          <CommonInput
+            v-model="password"
+            type="password"
+            placeholder="Пароль"
+          />
+        </div>
       </div>
 
       <CommonButton v-if="isSignInMode" @click="handleSignIn"
         >Войти</CommonButton
       >
-      <button v-else @click="handleSignUp">Зарегистрироваться</button>
+      <CommonButton v-else @click="handleSignUp"
+        >Зарегистрироваться</CommonButton
+      >
 
-      <p class="auth__toggle" @click="isSignInMode = !isSignInMode">
+      <div class="auth__stick"></div>
+
+      <p class="auth__toggle">
         {{ isSignInMode ? "Ещё нет аккаунта?" : "Уже есть аккаунт?" }}
+        <br />
+        <p class="auth__change" @click="toggleMode">{{ isSignInMode ? "Регистрация" : "Вход" }}</p>
       </p>
     </div>
   </div>
@@ -39,6 +52,10 @@ const isSignInMode = ref(true);
 
 const email = ref("");
 const password = ref("");
+
+const toggleMode = () => {
+    isSignInMode.value = !isSignInMode.value
+}
 
 const handleSignUp = async () => {
   const { data, error } = await supabase.auth.signUp({
@@ -81,7 +98,7 @@ const handleSignIn = async () => {
     flex-direction: column;
     width: 600px;
     padding: 24px 40px;
-    background-color: #fff;
+    background-color: $white;
     border-radius: 24px;
     gap: 32px;
   }
@@ -94,6 +111,34 @@ const handleSignIn = async () => {
     width: 100%;
     height: 1px;
     background: #00000015;
+  }
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  &__toggle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__change {
+    color: rgba($btn-color, 70%);
+    cursor: pointer;
+
+    &:hover {
+        color: rgba($btn-color, 90%);
+    }
   }
 }
 </style>
