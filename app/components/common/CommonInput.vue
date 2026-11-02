@@ -21,6 +21,7 @@ defineProps<{
     border-radius: 12px;
     border: 1px solid $border-color;
     font-size: 16px;
+    transition: border 0.2s ease;
 
     &:focus {
       border: 1px solid $btn-color;

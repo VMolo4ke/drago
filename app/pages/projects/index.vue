@@ -11,6 +11,5 @@
   width: 1080px;
   min-height: 100svh;
   margin: 0 auto;
-  background: $white;
 }
 </style>

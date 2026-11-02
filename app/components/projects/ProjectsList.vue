@@ -1,16 +1,6 @@
 <template>
   <div class="projects-container">
-    <div class="create-project-form">
-      <input
-        v-model="newProjectName"
-        type="text"
-        placeholder="Название проекта"
-        :disabled="isSubmitting"
-      />
-      <button @click="createProject" :disabled="isSubmitting">
-        {{ isSubmitting ? "Создание..." : "Создать проект" }}
-      </button>
-    </div>
+    <ProjectsForm @success="fetchProjects" />
 
     <div class="projects-list">
       <div
@@ -33,9 +23,6 @@ import type { Database } from "~/types/supabase";
 
 const supabase = useSupabaseClient<Database>();
 const user = useSupabaseUser();
-
-const newProjectName = ref("");
-const isSubmitting = ref(false);
 
 type ProjectRow = Database["public"]["Tables"]["projects"]["Row"];
 const projects = ref<ProjectRow[]>([]);
@@ -60,38 +47,38 @@ const fetchProjects = async () => {
   }
 };
 
-const createProject = async () => {
-  const userId = user.value?.sub;
-
-  if (!newProjectName.value.trim() || !userId) return;
-
-  isSubmitting.value = true;
-
-  try {
-    const { error } = await supabase.from("projects").insert([
-      {
-        name: newProjectName.value,
-        user_id: userId,
-      },
-    ]);
-
-    if (error) throw error;
-
-    newProjectName.value = "";
-    await fetchProjects();
-  } catch (error: any) {
-    alert(`Ошибка при создании проекта: ${error.message}`);
-  } finally {
-    isSubmitting.value = false;
-  }
-};
-
 onMounted(() => {
   fetchProjects();
 });
 </script>
 
 <style lang="scss" scoped>
+.projects-container {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
 .projects-list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.projects-list-item {
+  padding: 24px;
+  background: $white;
+  border-radius: 16px;
+  border: 1px solid #00000015;
+  transition: border 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid $black;
+  }
+
+  &__title {
+    font-size: 18px;
+  }
 }
 </style>
