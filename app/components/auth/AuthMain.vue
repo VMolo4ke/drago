@@ -37,7 +37,6 @@
       </p>
     </div>
 
-    <CommonModal v-if="errorText" text="errorText"/>
   </div>
 </template>
 
