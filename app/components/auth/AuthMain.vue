@@ -30,54 +30,58 @@
 
       <div class="auth__stick"></div>
 
-      <p class="auth__toggle">
+      <div class="auth__toggle">
         {{ isSignInMode ? "Ещё нет аккаунта?" : "Уже есть аккаунт?" }}
         <br />
-        <p class="auth__change" @click="toggleMode">{{ isSignInMode ? "Регистрация" : "Вход" }}</p>
-      </p>
+        <p class="auth__change" @click="toggleMode">
+          {{ isSignInMode ? "Регистрация" : "Вход" }}
+        </p>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-const modalStore = useModalStore()
+const modalStore = useModalStore();
 
-const supabase = useSupabaseClient()
+const supabase = useSupabaseClient();
 
-const isSignInMode = ref(true)
+const isSignInMode = ref(true);
 
 const email = ref("");
 const password = ref("");
 
 const toggleMode = () => {
-    isSignInMode.value = !isSignInMode.value
-}
+  isSignInMode.value = !isSignInMode.value;
+};
 
 const handleSignUp = async () => {
   const { error } = await supabase.auth.signUp({
     email: email.value,
     password: password.value,
-  })
+  });
 
   if (error) {
     modalStore.openModal(`Ошибка регистрации: ${getAuthErrorRu(error)}`);
   } else {
-    modalStore.openModal('Успешно! Проверь почту, туда ушло письмо для подтверждения.');
+    modalStore.openModal(
+      "Успешно! Проверь почту, туда ушло письмо для подтверждения.",
+    );
   }
-}
+};
 
 const handleSignIn = async () => {
   const { error } = await supabase.auth.signInWithPassword({
     email: email.value,
     password: password.value,
-  })
+  });
 
   if (error) {
     modalStore.openModal(`Ошибка входа: ${getAuthErrorRu(error)}`);
   } else {
-    await navigateTo('/projects')
+    await navigateTo("/projects");
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -131,7 +135,7 @@ const handleSignIn = async () => {
     cursor: pointer;
 
     &:hover {
-        color: rgba($btn-color, 90%);
+      color: rgba($btn-color, 90%);
     }
   }
 }
