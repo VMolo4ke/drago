@@ -36,44 +36,44 @@
         <p class="auth__change" @click="toggleMode">{{ isSignInMode ? "Регистрация" : "Вход" }}</p>
       </p>
     </div>
-
   </div>
 </template>
 
 <script setup lang="ts">
+const modalStore = useModalStore()
+
 const supabase = useSupabaseClient()
 
 const isSignInMode = ref(true)
 
 const email = ref("");
 const password = ref("");
-const errorText = ref("");
 
 const toggleMode = () => {
     isSignInMode.value = !isSignInMode.value
 }
 
 const handleSignUp = async () => {
-  const { data, error } = await supabase.auth.signUp({
+  const { error } = await supabase.auth.signUp({
     email: email.value,
     password: password.value,
   })
 
   if (error) {
-    errorText.value = "Ошибка регистрации: " + error.message
+    modalStore.openModal(`Ошибка регистрации: ${error.message}`);
   } else {
-    errorText.value = "Успешно! Проверь почту, туда ушло письмо для подтверждения."
+    modalStore.openModal('Успешно! Проверь почту, туда ушло письмо для подтверждения.');
   }
 }
 
 const handleSignIn = async () => {
-  const { data, error } = await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signInWithPassword({
     email: email.value,
     password: password.value,
   })
 
   if (error) {
-    errorText.value = "Ошибка входа: " + error.message
+    modalStore.openModal(`Ошибка входа: ${error.message}`);
   } else {
     await navigateTo('/projects')
   }

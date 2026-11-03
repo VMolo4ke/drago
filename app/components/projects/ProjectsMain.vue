@@ -6,6 +6,8 @@
 </template>
 
 <script setup lang="ts">
+const modalStore = useModalStore();
+
 const supabase = useSupabaseClient<Database>();
 const user = useSupabaseUser();
 
@@ -22,7 +24,7 @@ const fetchProjects = async () => {
     .eq("user_id", userId);
 
   if (error) {
-    console.error("Ошибка при загрузке проектов:", error.message);
+    modalStore.openModal(`Ошибка при загрузке проектов: ${error.message}`);
     return;
   }
 

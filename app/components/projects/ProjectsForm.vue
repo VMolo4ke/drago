@@ -17,6 +17,8 @@ const emit = defineEmits<{
   (e: "success"): void;
 }>();
 
+const modalStore = useModalStore();
+
 const supabase = useSupabaseClient<Database>();
 const user = useSupabaseUser();
 
@@ -37,7 +39,7 @@ const createProject = async () => {
   ]);
 
   if (error) {
-    alert(`Ошибка при создании проекта: ${error.message}`);
+    modalStore.openModal(`Ошибка при создании проекта: ${error.message}`);
     return;
   }
 

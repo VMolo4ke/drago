@@ -1,7 +1,3 @@
-// stores/auth.ts
-import { defineStore } from "pinia";
-import { computed } from "vue";
-
 export const useAuthStore = defineStore("auth", () => {
   const user = useSupabaseUser();
 

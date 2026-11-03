@@ -1,22 +1,28 @@
 <template>
-  <div class="modal">
-    <div class="modal__window">
-      <p>{{ text }}</p>
-      <CommonButton>Хорошо</CommonButton>
-    </div>
-  </div>
+  <ClientOnly>
+    <Teleport to="body">
+      <div v-if="isOpenModal" class="modal">
+        <div class="modal__window">
+          <p>{{ textModal }}</p>
+          <CommonButton @click="modalStore.closeModal">Хорошо</CommonButton>
+        </div>
+      </div>
+    </Teleport>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  text: string;
-}>();
+const modalStore = useModalStore();
+
+const { textModal, isOpenModal } = storeToRefs(modalStore);
 </script>
 
 <style lang="scss" scoped>
 .modal {
   z-index: 10;
   position: fixed;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100svh;
   background: #00000065;
