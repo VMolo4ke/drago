@@ -1,19 +1,20 @@
-# Nuxt 3 + Supabase SaaS Engine
+# Nuxt 3 PWA Low-Code Builder 📱
 
-Пет-проект с упором на правильную SSR-архитектуру, делегирование безопасности на уровень СУБД и строгую типизацию.
+Высокопроизводительный SaaS-конструктор для сборки и кастомизации мобильных PWA-приложений в режиме реального времени.
+
+## 🚀 Архитектурный хардкор (Что оценит тимлид)
+
+- **Low-Code State Engine (Pinia):** Архитектура реактивного состояния спроектирована под динамическое изменение конфигурации PWA на лету. Изменения параметров билдера мгновенно транслируются на кастомный превью-слой без деградации производительности.
+- **Backend-Driven Security (Supabase RLS):** Полный отказ от валидации прав на фронтенде. Безопасность изоляции данных клиентов, схем их PWA-приложений и UUID-проектов инкапсулирована на уровне СУБД через **Row Level Security (RLS)**. Защита от IDOR нативного уровня.
+- **High-Performance SSR Architecture:** Слой конфигуратора оптимизирован под гидратацию Nuxt 3. Динамические тяжелые интерфейсы сборщика изолированы от серверного рендеринга для исключения `Hydration Mismatch`, гарантируя минимальный `Cumulative Layout Shift (CLS)`.
+- **Database & Routing Strategy:** Идентификация проектов пользователей завязана на **UUID v4** (`gen_random_uuid()` на стороне Postgres). Это исключает enumeration-атаки (перебор чужих конфигураций PWA через URL).
+- **Robust Exception Layer:** Слой обработки ошибок авторизации GoTrue изолирован в `utils/authErrors.ts` на базе структуры `Map`, гарантируя чистую локализацию статус-кодов (включая API-специфичные, такие как `422`).
 
 ## 🛠 Стек
 
-- **Frontend:** Nuxt 3 (SSR Mode), Vue 3 (Script Setup), TypeScript, Pinia.
-- **Backend:** Supabase (PostgreSQL, GoTrue Auth).
-- **Styles:** SCSS (Vite Asset Pipeline via `additionalData`).
-
-## 🧠 Ключевые архитектурные решения (Что под капотом)
-
-- **Data Security via RLS:** Полный отказ от проверки прав владения сущностями на фронтенде. Вся бизнес-логика доступа (проверка `user_id`) инкапсулирована на уровне базы данных через **Supabase Row Level Security (RLS)**. Защита от IDOR «из коробки».
-- **Database Architecture:** В качестве Primary Keys используется **UUID v4** с дефолтной генерацией на стороне СУБД через `gen_random_uuid()`. Это полностью исключает вектор атаки через enumeration (перебор инкрементальных ID в URL).
-- **SSR-Friendly UI:** Логика динамических интерфейсных слоев спроектирована с учетом особенностей гидратации Nuxt 3. Исключены ошибки `Hydration Mismatch` и минимизирован `Layout Shift (CLS)`.
-- **Isolating Auth Exceptions:** Обработка ответов от Supabase Auth (GoTrue) вынесена в изолированный слой утилит (`utils/authErrors.ts`). Маппинг статус-кодов реализован через хэш-таблицу `Map`, что упрощает локализацию и поддержку.
+- **Core:** Nuxt 3 (SSR Mode), Vue 3 (`script setup`), TypeScript, Pinia.
+- **Backend / Auth / DB:** Supabase (PostgreSQL, GoTrue).
+- **Styles & Theme Engine:** SCSS (Vite Pipeline via `additionalData`).
 
 ## 🚀 Быстрый старт
 
@@ -23,7 +24,7 @@
    cp .env.example .env
    ```
 
-   В файле `.env` заполнить публичные ключи `NUXT_PUBLIC_SUPABASE_URL`, `NUXT_PUBLIC_SUPABASE_ANON_KEY` и токены для Supabase CLI.
+   _Заполните публичные ключи `NUXT_PUBLIC_SUPABASE_URL`, `NUXT_PUBLIC_SUPABASE_ANON_KEY` и токены доступа для Supabase CLI._
 
 2. **Установка зависимостей:**
 
@@ -31,7 +32,7 @@
    npm install
    ```
 
-3. **Запуск в режиме разработки:**
+3. **Запуск локального окружения:**
    ```bash
    npm run dev
    ```
