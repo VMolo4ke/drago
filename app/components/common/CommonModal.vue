@@ -1,14 +1,12 @@
 <template>
-  <ClientOnly>
-    <Teleport to="body">
-      <div v-if="isOpenModal" class="modal">
-        <div class="modal__window">
-          <p>{{ textModal }}</p>
-          <CommonButton @click="modalStore.closeModal">Хорошо</CommonButton>
-        </div>
+  <Teleport to="body">
+    <div v-if="isOpenModal" class="modal">
+      <div class="modal__window">
+        <p>{{ textModal }}</p>
+        <CommonButton @click="modalStore.closeModal">Хорошо</CommonButton>
       </div>
-    </Teleport>
-  </ClientOnly>
+    </div>
+  </Teleport>
 </template>
 
 <script setup lang="ts">
@@ -19,7 +17,7 @@ const { textModal, isOpenModal } = storeToRefs(modalStore);
 
 <style lang="scss" scoped>
 .modal {
-  z-index: 10;
+  z-index: $z-index-modal;
   position: fixed;
   top: 0;
   left: 0;

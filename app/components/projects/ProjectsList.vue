@@ -1,12 +1,13 @@
 <template>
   <div class="projects-list">
-    <div
+    <NuxtLink
       v-for="project in projects"
       :key="project.id"
       class="projects-list__item projects-list-item"
+      :to="`/projects/${project.id}`"
     >
       <h3 class="projects-list-item__title">{{ project.name }}</h3>
-    </div>
+    </NuxtLink>
 
     <div v-if="projects.length === 0" class="projects-list__empty">
       Проектов пока нет. Создайте первый!
