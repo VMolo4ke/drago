@@ -39,7 +39,9 @@ const createProject = async () => {
   ]);
 
   if (error) {
-    modalStore.openModal(`Ошибка при создании проекта: ${error.message}`);
+    modalStore.openModal(
+      `Ошибка при создании проекта: ${getAuthErrorRu(error)}`,
+    );
     return;
   }
 

@@ -60,7 +60,7 @@ const handleSignUp = async () => {
   })
 
   if (error) {
-    modalStore.openModal(`Ошибка регистрации: ${error.message}`);
+    modalStore.openModal(`Ошибка регистрации: ${getAuthErrorRu(error)}`);
   } else {
     modalStore.openModal('Успешно! Проверь почту, туда ушло письмо для подтверждения.');
   }
@@ -73,7 +73,7 @@ const handleSignIn = async () => {
   })
 
   if (error) {
-    modalStore.openModal(`Ошибка входа: ${error.message}`);
+    modalStore.openModal(`Ошибка входа: ${getAuthErrorRu(error)}`);
   } else {
     await navigateTo('/projects')
   }

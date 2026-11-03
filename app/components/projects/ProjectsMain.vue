@@ -24,7 +24,9 @@ const fetchProjects = async () => {
     .eq("user_id", userId);
 
   if (error) {
-    modalStore.openModal(`Ошибка при загрузке проектов: ${error.message}`);
+    modalStore.openModal(
+      `Ошибка при загрузке проектов: ${getAuthErrorRu(error)}`,
+    );
     return;
   }
 
