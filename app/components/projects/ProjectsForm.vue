@@ -1,5 +1,5 @@
 <template>
-  <div class="create-project-form">
+  <div class="projects-form">
     <CommonInput
       v-model="newProjectName"
       type="text"
@@ -51,4 +51,9 @@ const createProject = async () => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.projects-form {
+  display: flex;
+  gap: 12px;
+}
+</style>

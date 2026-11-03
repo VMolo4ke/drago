@@ -1,7 +1,5 @@
 <template>
-  <div class="projects">
-    <ProjectsList />
-  </div>
+  <ProjectsMain />
 </template>
 
 <script setup lang="ts"></script>
