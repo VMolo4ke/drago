@@ -23,12 +23,16 @@ const fetchProjects = async () => {
       .select("*")
       .eq("user_id", userId);
 
-    console.log(data);
-
     if (error) throw error;
+
     projects.value = data || [];
-  } catch (error: any) {
-    console.error(`Ошибка при загрузке проектов: ${error.message}`);
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : ((error as { message?: string })?.message ?? String(error));
+
+    console.error("Ошибка при загрузке проектов:", message);
   }
 };
 
