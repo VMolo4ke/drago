@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true },
-  modules: ["@pinia/nuxt", "@nuxtjs/supabase"],
+  modules: ["@pinia/nuxt", "@nuxtjs/supabase", "@nuxt/icon/module"],
 
   supabase: {
     redirectOptions: {
@@ -16,6 +16,15 @@ export default defineNuxtConfig({
       sameSite: "lax",
       secure: false,
     },
+  },
+
+  icon: {
+    customCollections: [
+      {
+        prefix: "custom",
+        dir: "~/assets/icons",
+      },
+    ],
   },
 
   css: ["~/assets/styles/main.scss"],

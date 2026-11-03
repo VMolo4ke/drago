@@ -1,6 +1,6 @@
 <template>
   <div v-if="project" class="builder">
-    <h1>{{ project.name }}</h1>
+    <BuilderSidebar />
   </div>
 </template>
 
@@ -12,4 +12,10 @@ defineProps<{
 }>();
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.builder {
+  width: 100%;
+  height: 100svh;
+  padding: 24px;
+}
+</style>

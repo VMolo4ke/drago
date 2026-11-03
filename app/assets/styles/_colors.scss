@@ -1,5 +1,13 @@
+// Твоя база
 $primary-color: #dffaff;
 $btn-color: #0085ff;
 $white: #fff;
 $black: #000;
 $border-color: #00000015;
+
+$bg-sidebar: $white;
+$bg-tab-hover: rgba($btn-color, 0.08);
+$bg-tab-active: rgba($btn-color, 0.12);
+
+$text-main: #1a1a1a;
+$text-muted: #666666;
