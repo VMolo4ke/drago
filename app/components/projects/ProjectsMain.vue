@@ -14,26 +14,19 @@ const projects = ref<ProjectRow[]>([]);
 
 const fetchProjects = async () => {
   const userId = user.value?.sub;
-
   if (!userId) return;
 
-  try {
-    const { data, error } = await supabase
-      .from("projects")
-      .select("*")
-      .eq("user_id", userId);
+  const { data, error } = await supabase
+    .from("projects")
+    .select("*")
+    .eq("user_id", userId);
 
-    if (error) throw error;
-
-    projects.value = data || [];
-  } catch (error: unknown) {
-    const message =
-      error instanceof Error
-        ? error.message
-        : ((error as { message?: string })?.message ?? String(error));
-
-    console.error("Ошибка при загрузке проектов:", message);
+  if (error) {
+    console.error("Ошибка при загрузке проектов:", error.message);
+    return;
   }
+
+  projects.value = data || [];
 };
 
 onMounted(() => {
