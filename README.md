@@ -1,75 +1,37 @@
-# Nuxt Minimal Starter
+# Nuxt 3 + Supabase SaaS Engine
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Пет-проект с упором на правильную SSR-архитектуру, делегирование безопасности на уровень СУБД и строгую типизацию.
 
-## Setup
+## 🛠 Стек
 
-Make sure to install dependencies:
+- **Frontend:** Nuxt 3 (SSR Mode), Vue 3 (Script Setup), TypeScript, Pinia.
+- **Backend:** Supabase (PostgreSQL, GoTrue Auth).
+- **Styles:** SCSS (Vite Asset Pipeline via `additionalData`).
 
-```bash
-# npm
-npm install
+## 🧠 Ключевые архитектурные решения (Что под капотом)
 
-# pnpm
-pnpm install
+- **Data Security via RLS:** Полный отказ от проверки прав владения сущностями на фронтенде. Вся бизнес-логика доступа (проверка `user_id`) инкапсулирована на уровне базы данных через **Supabase Row Level Security (RLS)**. Защита от IDOR «из коробки».
+- **Database Architecture:** В качестве Primary Keys используется **UUID v4** с дефолтной генерацией на стороне СУБД через `gen_random_uuid()`. Это полностью исключает вектор атаки через enumeration (перебор инкрементальных ID в URL).
+- **SSR-Friendly UI:** Логика динамических интерфейсных слоев спроектирована с учетом особенностей гидратации Nuxt 3. Исключены ошибки `Hydration Mismatch` и минимизирован `Layout Shift (CLS)`.
+- **Isolating Auth Exceptions:** Обработка ответов от Supabase Auth (GoTrue) вынесена в изолированный слой утилит (`utils/authErrors.ts`). Маппинг статус-кодов реализован через хэш-таблицу `Map`, что упрощает локализацию и поддержку.
 
-# yarn
-yarn install
+## 🚀 Быстрый старт
 
-# bun
-bun install
-```
+1. **Настройка окружения:**
 
-## Development Server
+   ```bash
+   cp .env.example .env
+   ```
 
-Start the development server on `http://localhost:3000`:
+   В файле `.env` заполнить публичные ключи `NUXT_PUBLIC_SUPABASE_URL`, `NUXT_PUBLIC_SUPABASE_ANON_KEY` и токены для Supabase CLI.
 
-```bash
-# npm
-npm run dev
+2. **Установка зависимостей:**
 
-# pnpm
-pnpm dev
+   ```bash
+   npm install
+   ```
 
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+3. **Запуск в режиме разработки:**
+   ```bash
+   npm run dev
+   ```
