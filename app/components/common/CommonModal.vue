@@ -1,12 +1,14 @@
 <template>
-  <Teleport to="body">
-    <div v-if="isOpenModal" class="modal">
-      <div class="modal__window">
-        <p>{{ textModal }}</p>
-        <CommonButton @click="modalStore.closeModal">Хорошо</CommonButton>
+  <ClientOnly>
+    <Teleport to="body">
+      <div v-if="isOpenModal" class="modal">
+        <div class="modal__window">
+          <p>{{ textModal }}</p>
+          <CommonButton @click="modalStore.closeModal">Хорошо</CommonButton>
+        </div>
       </div>
-    </div>
-  </Teleport>
+    </Teleport>
+  </ClientOnly>
 </template>
 
 <script setup lang="ts">
