@@ -104,7 +104,7 @@ const changeTab = (tabId: SidebarTab): void => {
     &--active {
       color: $white;
       background-color: $btn-color;
-      border-color: darken($btn-color, 5%);
+      border-color: color-mix(in srgb, $btn-color, #000 5%);
     }
   }
 
