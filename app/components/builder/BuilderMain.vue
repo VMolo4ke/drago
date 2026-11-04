@@ -1,6 +1,8 @@
 <template>
   <div v-if="project" class="builder">
     <BuilderSidebar />
+    <BuilderPreview />
+    <BuilderInspector />
   </div>
 </template>
 
@@ -14,6 +16,8 @@ defineProps<{
 
 <style lang="scss" scoped>
 .builder {
+  display: flex;
+  justify-content: space-between;
   width: 100%;
   height: 100svh;
   padding: 24px;
