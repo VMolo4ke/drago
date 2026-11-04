@@ -1,3 +1,4 @@
+import { defineStore } from "pinia";
 import { mockProject } from "~/mocks/baseMock";
 
 type WidgetNode = {
