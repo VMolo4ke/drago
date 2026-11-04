@@ -47,4 +47,8 @@ export default defineNuxtConfig({
       supabaseAnonKey: "",
     },
   },
+
+  nitro: {
+    preset: "netlify",
+  },
 });
