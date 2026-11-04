@@ -1,11 +1,11 @@
 export const useAuthStore = defineStore("auth", () => {
-  const user = computed(() => useSupabaseUser());
+  const user = useSupabaseUser();
 
-  const isAuthenticated = computed(() => !!user.value?.value);
+  const supabase = useSupabaseClient();
+
+  const isAuthenticated = computed(() => !!user.value);
 
   async function logout() {
-    const supabase = useSupabaseClient();
-
     const { error } = await supabase.auth.signOut();
     if (!error) {
       await navigateTo("/auth");
