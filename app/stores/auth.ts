@@ -1,13 +1,11 @@
-import { defineStore } from "pinia";
-
 export const useAuthStore = defineStore("auth", () => {
-  const user = useSupabaseUser();
+  const user = computed(() => useSupabaseUser());
 
-  const supabase = useSupabaseClient();
-
-  const isAuthenticated = computed(() => !!user.value);
+  const isAuthenticated = computed(() => !!user.value?.value);
 
   async function logout() {
+    const supabase = useSupabaseClient();
+
     const { error } = await supabase.auth.signOut();
     if (!error) {
       await navigateTo("/auth");
