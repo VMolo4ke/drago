@@ -25,14 +25,12 @@
     </nav>
 
     <div class="builder-sidebar__content">
-      <slot />
+      <BuilderSidebarWidgets v-show="activeTab === 'widgets'" />
     </div>
   </aside>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
-
 type SidebarTab = "pages" | "widgets" | "manifest";
 
 interface TabItem {
