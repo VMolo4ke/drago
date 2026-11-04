@@ -19,8 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import { useCanvasStore } from "~/stores/canvas";
-
 defineProps<{
   node: {
     id: string;
@@ -31,8 +29,6 @@ defineProps<{
     children?: any[];
   };
 }>();
-
-const canvasStore = useCanvasStore();
 </script>
 
 <style lang="scss" scoped>

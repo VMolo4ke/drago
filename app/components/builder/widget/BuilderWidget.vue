@@ -5,6 +5,8 @@
 </template>
 
 <script setup lang="ts">
+const { project } = storeToRefs(useCanvasStore());
+
 const widgetRef = ref<HTMLElement | null>(null);
 let clone: HTMLElement | null = null;
 
@@ -49,6 +51,21 @@ const onDrag = (event: MouseEvent) => {
 };
 
 const stopDrag = (event: MouseEvent) => {
+  if (event.clientX - shiftX > 500) {
+    project.value.pages[0]?.root.children.push({
+      id: "widget-text-3",
+      type: "h2",
+      name: "Заголовок экрана",
+      props: { text: "Заголовок" },
+      styles: {
+        fontSize: "20px",
+        fontWeight: "bold",
+        color: "#1a1a1a",
+        textAlign: "center",
+      },
+    });
+  }
+
   if (clone) {
     clone.remove();
     clone = null;
