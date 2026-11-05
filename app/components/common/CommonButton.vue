@@ -1,8 +1,15 @@
 <template>
-  <button class="ui-button"><slot /></button>
+  <component :is="componentType" class="ui-button"><slot /></component>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const attrs = useAttrs();
+import { NuxtLink } from "#components";
+
+const componentType = computed(() => {
+  return attrs.to ? NuxtLink : "button";
+});
+</script>
 
 <style lang="scss" scoped>
 .ui-button {
