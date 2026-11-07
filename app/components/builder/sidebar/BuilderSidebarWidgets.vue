@@ -1,5 +1,5 @@
 <template>
-  <div class="asd">
+  <div class="sidebar-widgets">
     <BuilderWidget />
   </div>
 </template>

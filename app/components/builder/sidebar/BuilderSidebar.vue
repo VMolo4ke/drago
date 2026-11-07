@@ -26,6 +26,7 @@
 
     <div class="builder-sidebar__content">
       <BuilderSidebarWidgets v-show="activeTab === 'widgets'" />
+      <BuilderStructure v-show="activeTab === 'pages'" />
     </div>
   </aside>
 </template>
