@@ -40,6 +40,20 @@ export const mockProject = {
               color: "#1a1a1a",
               textAlign: "center",
             },
+            children: [
+              {
+                id: "widget-text-3",
+                type: "div",
+                name: "Заголовок экрана 3",
+                props: { text: "Добро пожаловать в SaaS Конструктор!" },
+                styles: {
+                  fontSize: "20px",
+                  fontWeight: "bold",
+                  color: "#1a1a1a",
+                  textAlign: "center",
+                },
+              },
+            ],
           },
           {
             id: "widget-btn-1",
